@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You for Your Review</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 28px;
+      }
+
+      p {
+        color: #666;
+        margin-bottom: 30px;
+        font-size: 18px;
+      }
+
+      #editButton {
+    background-color: #4CAF50; /* Warna latar hijau */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.backButton {
+    background-color: #f44336; /* Warna latar merah */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* Efek hover saat kursor diarahkan ke tombol */
+#editButton:hover {
+    background-color: #45a049; /* Warna latar hijau yang sedikit lebih gelap */
+}
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>TERIMA KASIH TELAH MEMBERIKAN ULASAN</h1>
+      
+      <p>Judul Buku:</p>
+      <h3 id="subjectReview"></h3>
+      <p>Ulasan Anda:</p>
+      <h4 id="messageReview"><i></i></h4>
+
+      
+      <button id="editButton">Edit Ulasan</button>
+      <button id="backButton" class="backButton">Kembali</button>
+    </div>
+
+      <script>
+        // Retrieve data from localStorage
+        var reviewUser = localStorage.getItem("review2");
+
+        // Check if there's any stored data
+        if (reviewUser) {
+          // Parse the JSON string back into an review2
+          var review2 = JSON.parse(reviewUser);
+
+          // Access individual form fields
+          var name = review2.name;
+          var email = review2.email;
+          var subject = review2.subject;
+          var message = review2.message;
+
+          //ini masukin gambar buku
+          let judulBuku = [["A1", "Poligami"],
+            ["A2", "Bagaimana Memikat Pria Pilihan"],
+            ["A3", "The Art of Manipulation"],
+            ["A4", "Semakin Hoki dengan Beternak Babi"],
+            ["A5", "Budidaya Ayam Petelur"],
+            ["A6", "Cepat Sukses Cepat Kaya"]]
+            for(let i = 0 ; i < judulBuku.length ; i++) {
+              if(judulBuku[i][0] === subject) {
+                subject = judulBuku[i][1]
+              }
+            }
+          
+
+
+          // Now you can use these variables as needed, such as displaying them on the page
+          
+          document.getElementById("subjectReview").innerHTML = subject;
+          document.getElementById("messageReview").innerHTML = `<i>"${message}"</i>` ;
+        
+
+          function editReview() {
+        // Prompt the user to enter a new review
+        var newReview = prompt("Masukkan ulasan baru:");
+
+        // Update the displayed review if the user entered something
+        if (newReview !== null && newReview !== "") {
+            // Update the displayed review
+            document.getElementById("messageReview").innerHTML = `<i>"${newReview}"</i>`;
+
+            // Update the review in localStorage
+            review2.message = newReview;
+            localStorage.setItem("review2", JSON.stringify(review2));
+        }
+    }
+
+    // Add event listener to the edit button
+    document.getElementById("editButton").addEventListener("click", editReview);
+} else {
+    console.log("No data found in localStorage");
+}
+
+document.getElementById("backButton").addEventListener("click", function() {
+    // Go back to the previous page
+    window.location.href = "index.html";
+});
+      </script>
+    </div>
+  </body>
+</html>
+
+<!-- !PAGE CONTENT! -->

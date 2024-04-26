@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>W3.CSS Template</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body,h1 {font-family: "Montserrat", sans-serif}
+img {margin-bottom: -7px}
+.w3-row-padding img {margin-bottom: 12px}
+
+        .redirect-button {
+            background-color: #4CAF50; / Green /
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        
+        .redirect-button:hover {
+            background-color: #45a049;
+        }
+
+        .button-container {
+          text-align: center;
+          margin-top: 15px;
+        }
+
+</style>
+</head>
+<body style="background-color: aliceblue;">
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-content" style="max-width:1500px">
+
+<header class="w3-center w3-margin-bottom"  onpageshow="storedData()">
+  <h1><b>Berikut Buku Yang Disewa</b></h1>
+  <h2 id="namaAnda"><b>Nama Anda</b></h2>
+  <h3 id="judulBuku"><b>Judul Buku</b></h3>
+
+  <script>
+    // Retrieve data from localStorage
+        var storedData = localStorage.getItem('formData');
+
+        // Check if there's any stored data
+        if (storedData) {
+            // Parse the JSON string back into an object
+            var formData = JSON.parse(storedData);
+            
+            // Access individual form fields
+            var name = formData.name;
+            var email = formData.email;
+            var subject = formData.subject;
+            var message = formData.message;
+            let image = ""
+
+
+            //ini masukin gambar buku
+            let daftarBuku = [["A1", "img/slider/slide1.jpg"],
+            ["A2", "img/slider/slide2.jpg"],
+            ["A3", "img/slider/slide3.jpg"],
+            ["A4", "img/slider/slide4.jpg"],
+            ["A5", "img/slider/slide5.jpg"],
+            ["A6", "img/slider/slide6.jpg"]]
+            for(let i = 0 ; i < daftarBuku.length ; i++) {
+              if(daftarBuku[i][0] === subject) {
+                image = daftarBuku[i][1]
+              }
+            }
+                                                
+            
+            // Now you can use these variables as needed, such as displaying them on the page
+            document.getElementById("namaAnda").innerHTML = name
+            document.getElementById("judulBuku").innerHTML = `Kode buku: ${subject}`
+            
+            //ini juga masukin gambar buku
+            var imgElement = document.createElement("img");
+            imgElement.src = image;
+            imgElement.alt = "Buku";
+            imgElement.style.maxHeight = "300px";
+
+            //ini juga masukin gambar buku
+            document.querySelector("header").appendChild(imgElement);
+            
+        } else {
+            console.log("No data found in localStorage");
+        }
+
+  </script>
+</header>
+
+<!-- Button with the redirect-button class -->
+<div class="button-container">
+  <button class="redirect-button" onclick="showAlert()">Sewa</button>
+</div>
+
+<script>
+  function showAlert() {
+    alert(`Selamat ${name} telah berhasil meminjam buku dengan kode ${subject}, kami telah mengirimkan detail peminjaman di email ${email}. Jika buku tidak dikembalikan sesuai tanggal maka polisi akan datang ke alamat ${message}`);
+  }
+</script>
+
+
+ 
+<script>
+// Toggle grid padding
+function myFunction() {
+  var x = document.getElementById("myGrid");
+  if (x.className === "w3-row") {
+    x.className = "w3-row-padding";
+  } else { 
+    x.className = x.className.replace("w3-row-padding", "w3-row");
+  }
+}
+
+// Open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.width = "100%";
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+
+</body>
+</html>
